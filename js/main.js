@@ -1,5 +1,7 @@
 'use strict'
 
+const MINE = '💣'
+const EMPTY = ' '
 //The model board
 var gBoard = {
     minesAroundCount: 4,
@@ -21,19 +23,17 @@ var gLevel = {
 // markedCount: How many cells are
 // marked (with a flag)
 // secsPassed: How many seconds passed
-var gGame 
+var gGame = {
+    isOn: false,
+    revealedCount: 0,
+    markedCount: 0,
+    secsPassed: 0
+}
 
 
 // Called when page loads
 
 function onInit() {
-    var gGame = {
-        isOn: false,
-        revealedCount: 0,
-        markedCount: 0,
-        secsPassed: 0
-    }
-
     gBoard = buildBoard()
     renderBoard(gBoard)
 }
@@ -42,25 +42,49 @@ function onInit() {
 // Set some mines
 // Call setMinesNegsCount()
 // Return the created board
-buildBoard()
 function buildBoard() { // create board
     const size = gLevel.SIZE
+    const numMines = gLevel.MINES
     const board = []
 
     for (var i = 0; i < size; i++) {
-        board.push([])
+        board[i] = []
 
-        for (var j = 0; j < size; j++)
-            board[i][j] = 'X'
+        for (var j = 0; j < size; j++) {
+            board[i][j] = {
+                minesAroundCount: 0,
+                isCovered: true,
+                isMine: false,
+                isMarked: false
+            }
+            if (i === 1 && j === 2) {
+                board[i][j].isMine = MINE
+            }
+        }
     }
+
     console.table(board)
     return board
 }
+
 
 // Count mines around each cell
 // and set the cell's
 // minesAroundCount.
 function setMinesNegsCount(board) {
+
+    const size = board.length
+
+    for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
+            if (board[i][j].isMine) continue
+
+            var mineCount = 0
+        }
+    }
+
+
+
 
 }
 
@@ -76,13 +100,14 @@ function renderBoard(board) {
             const className = `cell cell-${i}-${j}`
 
             strHTML += `<td class="${className}">
-                            ${cell}
+                            ${cell + ''}
                         </td>`
         }
         strHTML += '</tr>'
     }
     const elContainer = document.querySelector('.board')
     elContainer.innerHTML = strHTML //update dom
+    console.log('board:',board)
 }
 
 // Called when a cell is clicked
