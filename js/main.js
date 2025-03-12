@@ -21,16 +21,21 @@ var gLevel = {
 // markedCount: How many cells are
 // marked (with a flag)
 // secsPassed: How many seconds passed
-var gGame = {
-    isOn: false,
-    revealedCount: 0,
-    markedCount: 0,
-    secsPassed: 0
-}
+var gGame 
+
 
 // Called when page loads
-function onInit() {
 
+function onInit() {
+    var gGame = {
+        isOn: false,
+        revealedCount: 0,
+        markedCount: 0,
+        secsPassed: 0
+    }
+
+    gBoard = buildBoard()
+    renderBoard(gBoard)
 }
 
 // Builds the board
@@ -38,7 +43,7 @@ function onInit() {
 // Call setMinesNegsCount()
 // Return the created board
 buildBoard()
-function buildBoard() {
+function buildBoard() { // create board
     const size = gLevel.SIZE
     const board = []
 
@@ -46,10 +51,10 @@ function buildBoard() {
         board.push([])
 
         for (var j = 0; j < size; j++)
-            board[i][j] = ''
+            board[i][j] = 'X'
     }
     console.table(board)
-
+    return board
 }
 
 // Count mines around each cell
@@ -62,7 +67,22 @@ function setMinesNegsCount(board) {
 // Render the board as a <table>
 // to the page
 function renderBoard(board) {
+    var strHTML = ''
+    for (var i = 0; i < board.length; i++) {
+        strHTML += '<tr>'
+        for (var j = 0; j < board[0].length; j++) {
 
+            const cell = board[i][j]
+            const className = `cell cell-${i}-${j}`
+
+            strHTML += `<td class="${className}">
+                            ${cell}
+                        </td>`
+        }
+        strHTML += '</tr>'
+    }
+    const elContainer = document.querySelector('.board')
+    elContainer.innerHTML = strHTML //update dom
 }
 
 // Called when a cell is clicked
