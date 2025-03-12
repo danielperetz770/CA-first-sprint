@@ -22,3 +22,7 @@ body {
     cursor: pointer;
   }
   
+  .uncovered {
+    background-color: lightgray;
+    font-weight: bold;
+}
