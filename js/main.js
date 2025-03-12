@@ -3,12 +3,7 @@
 const MINE = '💣'
 const EMPTY = ' '
 //The model board
-var gBoard = {
-    minesAroundCount: 4,
-    isCovered: true,
-    isMine: false,
-    isMarked: false
-}
+var gBoard = []
 // This is an object by which the board size
 // is set (in this case: 4x4 board and how
 // many mines to place)
@@ -35,6 +30,7 @@ var gGame = {
 
 function onInit() {
     gBoard = buildBoard()
+    // setMinesNegsCount(gBoard)
     renderBoard(gBoard)
 }
 
@@ -57,7 +53,7 @@ function buildBoard() { // create board
                 isMine: false,
                 isMarked: false
             }
-            if (i === 1 && j === 2) {
+            if (i === 1 && j === 2 || i === 3 && j === 1) {
                 board[i][j].isMine = MINE
             }
         }
@@ -100,14 +96,15 @@ function renderBoard(board) {
             const className = `cell cell-${i}-${j}`
 
             strHTML += `<td class="${className}">
-                            ${cell + ''}
+            ${cell.isMine ? MINE : cell.minesAroundCount}
+
                         </td>`
         }
         strHTML += '</tr>'
     }
     const elContainer = document.querySelector('.board')
     elContainer.innerHTML = strHTML //update dom
-    console.log('board:',board)
+    console.log('board:', board)
 }
 
 // Called when a cell is clicked
