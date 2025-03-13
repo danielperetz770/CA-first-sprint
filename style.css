@@ -1,40 +1,45 @@
 body {
-    background-color: blue;
-    color: white;
-    text-align: center;
-  }
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
 
-  table {
-    margin: auto;
-    border:solid 1px white;
-  }
+table {
+  margin: auto;
+  border: solid 1px white;
+}
 
-  .cell{
-    border:solid 1px white;
-  }
+.cell {
+  border: solid 1px white;
+}
 
-  .cell {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-  }
+.cell {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+}
 
-  .restart-btn {
-    background-color: rgba(116, 122, 149, 0.549);
-    margin-top: 20px;
-    padding: 10px;
-    cursor: pointer;
-  }
-  .restart-btn:hover {
-    margin-top: 20px;
-    background-color: rgb(255, 221, 0);
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .uncovered {
-    background-color: lightgray;
-    font-weight: bold;
+.cell:hover {
+  background-color: rgba(116, 122, 149, 0.549);
+}
+
+.restart-btn {
+  background-color: rgba(116, 122, 149, 0.549);
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.restart-btn:hover {
+  margin-top: 20px;
+  background-color: rgb(255, 221, 0);
+  padding: 10px;
+  cursor: pointer;
+}
+
+.uncovered {
+  background-color: lightgray;
+  font-weight: bold;
 }
 
 .modal {
@@ -51,18 +56,20 @@ body {
   left: calc(50% - 150px);
 }
 
-.btn-containerB{
+.btn-containerB {
   background-color: rgb(0, 183, 0);
-color: white;
+  color: white;
   margin-bottom: 20px;
 }
-.btn-containerA{
+
+.btn-containerA {
   background-color: rgb(255, 111, 0);
-color: white;
+  color: white;
   margin-bottom: 20px;
 }
-.btn-containerP{
+
+.btn-containerP {
   background-color: rgb(255, 0, 0);
-color: white;
+  color: white;
   margin-bottom: 20px;
 }

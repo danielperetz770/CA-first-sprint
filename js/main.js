@@ -149,7 +149,6 @@ function checkGameOver() {
     openModal(msg)
 }
 
-
 function openModal(msg) {
     const elModal = document.querySelector('.modal')
     const elMsg = elModal.querySelector('.msg')
