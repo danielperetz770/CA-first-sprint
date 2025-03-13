@@ -3,8 +3,13 @@
 const MINE = '💣'
 const EMPTY = ' '
 const FLAG = '🚩'
+
+const AUDIO_MINE = new Audio('js/audio/mine-audio.mp3')
+
+
 //The model board
 var gBoard = []
+
 // This is an object by which the board size
 // is set (in this case: 4x4 board and how
 // many mines to place)
@@ -31,14 +36,11 @@ var gGame = {
 function onInit() {
     gGame.isOn = true
     gBoard = buildBoard()
-    // setMinesNegsCount(gBoard)
-    renderBoard(gBoard)
+    placeMinesRandom(gBoard, gLevel.MINES)
+    setMinesNegsCount(gBoard)
     closeModal()
 }
-// Builds the board
-// Set some mines
-// Call setMinesNegsCount()
-// Return the created board
+
 function buildBoard() {
     const size = gLevel.SIZE
     const board = []
@@ -46,14 +48,14 @@ function buildBoard() {
     for (var i = 0; i < size; i++) {
         board[i] = []
         for (var j = 0; j < size; j++) {
-            const cell = {
+            board[i][j] = {
                 minesAroundCount: 0,
                 isCovered: true,
                 isMine: false,
                 isMarked: false
             }
-            if (i == 0 && j == 3 || i == 3 && j == 1) cell.isMine = true
-            board[i][j] = cell
+            // if (i == 0 && j == 3 || i == 3 && j == 1) cell.isMine = true
+            // board[i][j] = cell
         }
     }
     console.table(board)
@@ -107,14 +109,21 @@ function renderBoard(board) {
             strHTML += `<td class="${className}" onclick="onCellClicked(this, ${i}, ${j})">
                 ${cell.isCovered ? '' : (cell.isMine ? MINE : cell.minesAroundCount)}
             </td>`
+
         }
         strHTML += '</tr>'
+
     }
+    // setTimeout(() => {
+    //     console.log("Delayed for 1 second.");
+    // }, 1000);
+
     onCellMarked()
     const elContainer = document.querySelector('.board')
     elContainer.innerHTML = strHTML // update the DOM
     console.log('board:', board)
 }
+
 
 // Called when a cell is clicked
 function onCellClicked(elCell, i, j) {
@@ -124,11 +133,29 @@ function onCellClicked(elCell, i, j) {
     elCell.classList.add('uncovered')
     if (cell.isMine) {
         elCell.innerHTML = MINE
+        if (cell.isMine) {
+            AUDIO_MINE.play();
+        }
     } else {
         elCell.innerHTML = cell.minesAroundCount > 0 ? cell.minesAroundCount : ''
     }
     gGame.revealedCount++
 
+}
+
+function placeMinesRandom(board, minesCount) {
+    const size = board.length
+    let minesPlaced = 0
+
+    while (minesPlaced < minesCount) {
+        const i = getRandomInt(0, size)
+        const j = getRandomInt(0, size)
+
+        if (!board[i][j].isMine) {
+            board[i][j].isMine = true
+            minesPlaced++
+        }
+    }
 }
 
 // Called when a cell is rightclicked
