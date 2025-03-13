@@ -66,15 +66,34 @@ function buildBoard() {
 function setMinesNegsCount(board) {
     const rows = board.length
     const cols = board[0].length
+
     for (var i = 0; i < rows; i++) {
         for (var j = 0; j < cols; j++) {
             if (board[i][j].isMine) continue
             var currCell = board[i][j]
             currCell.i = i
             currCell.j = j
+            var minesAroundCount = 0
+
+            for (var x = -1; x <= 1; x++) {
+                for (var y = -1; y <= 1; y++) {
+                    const neighborRow = i + x
+                    const neighborCOl = j + y
+                    if (neighborRow < 0 || neighborRow >= rows || neighborCOl < 0 || neighborCOl >= cols) {
+                        continue
+                    }
+                    if (board[neighborRow][neighborCOl].isMine) {
+
+                        minesAroundCount++
+                    }
+                }
+            }
+            currCell.minesAroundCount = minesAroundCount
         }
     }
+    renderBoard(board)
 }
+
 
 // Render the board as a <table>
 // to the page
@@ -86,9 +105,8 @@ function renderBoard(board) {
             const cell = board[i][j]
             const className = `cell cell-${i}-${j}`
             strHTML += `<td class="${className}" onclick="onCellClicked(this, ${i}, ${j})">
-            
-                            ${cell.isMine ? MINE : cell.isCovered ? '' : cell.minesAroundCount}
-                        </td>`
+                ${cell.isCovered ? '' : (cell.isMine ? MINE : cell.minesAroundCount)}
+            </td>`
         }
         strHTML += '</tr>'
     }
@@ -101,7 +119,7 @@ function renderBoard(board) {
 // Called when a cell is clicked
 function onCellClicked(elCell, i, j) {
     const cell = gBoard[i][j]
-    // Uncover the cell
+    if (!cell.isCovered) return
     cell.isCovered = false
     elCell.classList.add('uncovered')
     if (cell.isMine) {
@@ -113,19 +131,6 @@ function onCellClicked(elCell, i, j) {
 
 }
 
-function getEmptyLocation(board) {
-    var emptyLocations = []
-    for (var i = 0; i < board.length; i++) {
-        for (var j = 0; j < board[0].length; j++) {
-            if (board[i][j] === EMPTY) {
-                emptyLocations.push({ i, j })
-            }
-        }
-    }
-    if (!emptyLocations.length) return null
-    var randIdx = getRandomInt(0, emptyLocations.length)
-    return emptyLocations[randIdx]
-}
 // Called when a cell is rightclicked
 // See how you can hide the context
 // menu on right click
