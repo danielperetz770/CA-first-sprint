@@ -1,11 +1,16 @@
 body {
-    background-color: black;
+    background-color: blue;
     color: white;
     text-align: center;
   }
 
   table {
     margin: auto;
+    border:solid 1px white;
+  }
+
+  .cell{
+    border:solid 1px white;
   }
 
   .cell {
@@ -15,9 +20,14 @@ body {
   }
 
   .restart-btn {
+    background-color: rgba(116, 122, 149, 0.549);
     margin-top: 20px;
-    background-color: rgb(255, 255, 255);
-    color: rgba(0, 0, 0, 0.738);
+    padding: 10px;
+    cursor: pointer;
+  }
+  .restart-btn:hover {
+    margin-top: 20px;
+    background-color: rgb(255, 221, 0);
     padding: 10px;
     cursor: pointer;
   }
@@ -25,4 +35,34 @@ body {
   .uncovered {
     background-color: lightgray;
     font-weight: bold;
+}
+
+.modal {
+  display: none;
+  border: solid 3px grey;
+  width: 300px;
+  height: 200px;
+  background-color: rgb(222, 226, 228);
+  color: black;
+  font-size: 32px;
+
+  position: absolute;
+  top: 200px;
+  left: calc(50% - 150px);
+}
+
+.btn-containerB{
+  background-color: rgb(0, 183, 0);
+color: white;
+  margin-bottom: 20px;
+}
+.btn-containerA{
+  background-color: rgb(255, 111, 0);
+color: white;
+  margin-bottom: 20px;
+}
+.btn-containerP{
+  background-color: rgb(255, 0, 0);
+color: white;
+  margin-bottom: 20px;
 }

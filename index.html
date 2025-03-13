@@ -10,16 +10,34 @@
 
 <body onload="onInit()">
     <h1>CA-firs-sprint!</h1>
+    <h2>Mine Sweeper</h2>
+    <h3>lives: <span>❤️❤️❤️</span></h3>
+
+    <div class="btn-container">
+        <button class="btn-containerB">Beginner level</button>
+        <button class="btn-containerA">Advanced level</button>
+        <button class="btn-containerP">Professional level</button>
+    </div>
 
     <table>
         <tbody class="board"></tbody>
     </table>
-    
-<div>
-    <button class="restart-btn" onclick="onInit()">Play Again</button>
-</div>
+    <div oncontextmenu="javascript:alert('success!');return false;">
+        Lorem Ipsum
+    </div>
 
+    <div>
+        <button class="restart-btn" onclick="onInit()">😍</button>
+    </div>
 
+    <div class="modal">
+        <h3 class="msg"></h3>
+        <button class="restart-btn" onclick="onInit()">Play Again</button>
+    </div>
+
+    <footer>
+        <p>© Daniel Peretz
+    </footer>
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>
 </body>
